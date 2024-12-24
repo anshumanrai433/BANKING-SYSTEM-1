@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change PIN</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('icon/atm2.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            width: 400px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .container h1 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #f4a261;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #f4a261;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background: #264653;
+            color: white;
+        }
+        .btn-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s;
+        }
+        .btn.change {
+            background: linear-gradient(135deg, #2a9d8f, #264653);
+            color: white;
+        }
+        .btn.change:hover {
+            background: linear-gradient(135deg, #264653, #2a9d8f);
+            transform: translateY(-3px);
+        }
+        .btn.back {
+            background: linear-gradient(135deg, #e63946, #b71c1c);
+            color: white;
+        }
+        .btn.back:hover {
+            background: linear-gradient(135deg, #b71c1c, #e63946);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Change Your PIN</h1>
+        <form id="pinForm">
+            <div class="input-group">
+                <label for="newPin">New PIN:</label>
+                <input type="password" id="newPin" placeholder="Enter new PIN" required>
+            </div>
+            <div class="input-group">
+                <label for="reNewPin">Re-Enter New PIN:</label>
+                <input type="password" id="reNewPin" placeholder="Re-enter new PIN" required>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn change" id="changeButton">Change PIN</button>
+                <button type="button" class="btn back" id="backButton">Back</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const pin = "1234"; // Simulate dynamic PIN fetching (replace with actual logic)
+
+        document.getElementById("changeButton").addEventListener("click", () => {
+            const newPin = document.getElementById("newPin").value;
+            const reNewPin = document.getElementById("reNewPin").value;
+
+            if (!newPin || !reNewPin) {
+                alert("Please fill in both fields!");
+                return;
+            }
+
+            if (newPin !== reNewPin) {
+                alert("Entered PINs do not match. Please try again.");
+                return;
+            }
+
+            // Simulate PIN update logic
+            alert("PIN changed successfully!");
+            window.location.href = `main.html?pin=${newPin}`; // Redirect to the main menu
+        });
+
+        document.getElementById("backButton").addEventListener("click", () => {
+            window.location.href = `main.html?pin=${pin}`; // Redirect to the main menu
+        });
+    </script>
+</body>
+</html>
