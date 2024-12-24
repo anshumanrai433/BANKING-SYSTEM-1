@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Inquiry</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: #f1faee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            text-align: center;
+            width: 400px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #f4a261;
+        }
+        p {
+            font-size: 22px;
+            margin-bottom: 30px;
+            color: #e9ecef;
+        }
+        .container button {
+            background: linear-gradient(135deg, #2a9d8f, #264653);
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            font-weight: bold;
+        }
+        .container button:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #264653, #2a9d8f);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .footer {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #a8dadc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Current Balance</h1>
+        <p id="balance">Loading...</p>
+        <button id="backButton">Back</button>
+        <div class="footer">
+            <p>&copy; 2024 Your Bank. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Simulate fetching the PIN and balance from the server
+        const pin = "1234"; // Replace with dynamic PIN fetching logic
+        const fetchBalance = (pin) => {
+            // Simulate fetching balance using the PIN
+            let balance = 0;
+            const transactions = [
+                { type: "Deposit", amount: 5000 },
+                { type: "Withdrawal", amount: 2000 },
+                { type: "Deposit", amount: 3000 },
+            ];
+
+            transactions.forEach(transaction => {
+                if (transaction.type === "Deposit") {
+                    balance += transaction.amount;
+                } else {
+                    balance -= transaction.amount;
+                }
+            });
+
+            return balance;
+        };
+
+        // Set the balance dynamically
+        document.getElementById("balance").innerText = `Rs ${fetchBalance(pin)}`;
+
+        // Handle back button click
+        document.getElementById("backButton").addEventListener("click", () => {
+            window.location.href = "main.html"; // Replace with the main page URL
+        });
+    </script>
+</body>
+</html>
