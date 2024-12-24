@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Signup - Page 3</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 800px;
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 30px 50px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #2a9d8f;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 28px;
+        }
+        h2 {
+            font-size: 20px;
+            font-weight: 400;
+            color: #264653;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            color: #264653;
+        }
+        .input-group, .checkbox-group {
+            margin-bottom: 20px;
+        }
+        .input-group label, .checkbox-group label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .radio-group label {
+            margin-right: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .details {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #555;
+        }
+        .details strong {
+            color: #2a9d8f;
+            font-weight: 600;
+        }
+        .btn-group {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s;
+        }
+        .btn.submit {
+            background: linear-gradient(135deg, #38ef7d, #11998e);
+            color: white;
+        }
+        .btn.submit:hover {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            transform: translateY(-3px);
+        }
+        .btn.cancel {
+            background: linear-gradient(135deg, #f85032, #e73827);
+            color: white;
+            margin-left: 10px;
+        }
+        .btn.cancel:hover {
+            background: linear-gradient(135deg, #e73827, #f85032);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Account Signup</h1>
+        <h2>Page 3: Account Details</h2>
+
+        <form id="signupForm">
+            <div class="section-title">Account Type</div>
+            <div class="radio-group">
+                <label><input type="radio" name="accountType" value="Saving Account"> Saving Account</label>
+                <label><input type="radio" name="accountType" value="Fixed Deposit Account"> Fixed Deposit Account</label>
+                <label><input type="radio" name="accountType" value="Current Account"> Current Account</label>
+                <label><input type="radio" name="accountType" value="Recurring Deposit Account"> Recurring Deposit Account</label>
+            </div>
+
+            <div class="section-title">Card Details</div>
+            <p class="details">Card Number: <strong>XXXX-XXXX-XXXX-4841</strong></p>
+            <p class="details">(Your 16-digit Card Number will appear on your ATM card and statements.)</p>
+
+            <div class="section-title">PIN</div>
+            <p class="details">PIN: <strong>XXXX</strong></p>
+            <p class="details">(4-digit PIN will be auto-generated.)</p>
+
+            <div class="section-title">Services Required</div>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="services" value="ATM Card"> ATM Card</label>
+                <label><input type="checkbox" name="services" value="Internet Banking"> Internet Banking</label>
+                <label><input type="checkbox" name="services" value="Mobile Banking"> Mobile Banking</label>
+                <label><input type="checkbox" name="services" value="Email Alerts"> Email Alerts</label>
+                <label><input type="checkbox" name="services" value="Cheque Book"> Cheque Book</label>
+                <label><input type="checkbox" name="services" value="E-Statement"> E-Statement</label>
+            </div>
+
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="declaration" required> I hereby declare that the above-entered details are correct to the best of my knowledge.</label>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn submit" id="submitButton">Submit</button>
+                <button type="button" class="btn cancel" id="cancelButton">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("submitButton").addEventListener("click", () => {
+            const form = document.getElementById("signupForm");
+            const accountType = form.querySelector('input[name="accountType"]:checked');
+            const services = Array.from(form.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value);
+
+            if (!accountType) {
+                alert("Please select an account type.");
+                return;
+            }
+
+            if (services.length === 0) {
+                alert("Please select at least one service.");
+                return;
+            }
+
+            alert(`Account Type: ${accountType.value}\nSelected Services: ${services.join(", ")}`);
+            window.location.href = "deposit.html"; // Redirect to deposit page
+        });
+
+        document.getElementById("cancelButton").addEventListener("click", () => {
+            window.location.href = "index.html"; // Redirect to home page
+        });
+    </script>
+</body>
+</html>
