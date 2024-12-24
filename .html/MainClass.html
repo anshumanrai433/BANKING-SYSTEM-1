@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Main Menu</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('icon/atm2.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+        }
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            width: 500px;
+        }
+        .container h1 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #f4a261;
+        }
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #2a9d8f, #264653);
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            color: #ffffff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            font-weight: bold;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #264653, #2a9d8f);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn.exit {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #e63946, #b71c1c);
+        }
+        .btn.exit:hover {
+            background: linear-gradient(135deg, #b71c1c, #e63946);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Please Select Your Transaction</h1>
+        <div class="btn-group">
+            <button class="btn" id="deposit">Deposit</button>
+            <button class="btn" id="withdraw">Cash Withdrawal</button>
+            <button class="btn" id="fastCash">Fast Cash</button>
+            <button class="btn" id="miniStatement">Mini Statement</button>
+            <button class="btn" id="pinChange">PIN Change</button>
+            <button class="btn" id="balanceEnquiry">Balance Enquiry</button>
+            <button class="btn exit" id="exit">Exit</button>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic PIN value (replace with actual logic to fetch PIN)
+        const pin = "1234"; 
+
+        // Button event handlers
+        document.getElementById("deposit").addEventListener("click", () => {
+            window.location.href = `deposit.html?pin=${pin}`;
+        });
+        document.getElementById("withdraw").addEventListener("click", () => {
+            window.location.href = `withdraw.html?pin=${pin}`;
+        });
+        document.getElementById("fastCash").addEventListener("click", () => {
+            window.location.href = `fastCash.html?pin=${pin}`;
+        });
+        document.getElementById("miniStatement").addEventListener("click", () => {
+            window.location.href = `miniStatement.html?pin=${pin}`;
+        });
+        document.getElementById("pinChange").addEventListener("click", () => {
+            window.location.href = `pinChange.html?pin=${pin}`;
+        });
+        document.getElementById("balanceEnquiry").addEventListener("click", () => {
+            window.location.href = `balanceEnquiry.html?pin=${pin}`;
+        });
+        document.getElementById("exit").addEventListener("click", () => {
+            alert("Thank you for using our ATM. Have a great day!");
+            window.location.href = "index.html"; // Redirect to main index
+        });
+    </script>
+</body>
+</html>
