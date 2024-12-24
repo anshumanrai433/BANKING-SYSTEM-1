@@ -1,0 +1,70 @@
+-- Create a new database named 'banking_system'
+CREATE DATABASE banking_system;
+
+-- Switch to the 'banking_system' database
+USE banking_system;
+
+-- Create a table to store customer information
+CREATE TABLE Customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each customer
+    first_name VARCHAR(50) NOT NULL,            -- First name of the customer
+    last_name VARCHAR(50) NOT NULL,             -- Last name of the customer
+    email VARCHAR(100) UNIQUE NOT NULL,         -- Unique email address of the customer
+    phone VARCHAR(15),                          -- Phone number of the customer (optional)
+    address TEXT,                               -- Address of the customer
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Timestamp of when the record was created
+);
+
+-- Create a table to store branch details
+CREATE TABLE Branches (
+    branch_id INT AUTO_INCREMENT PRIMARY KEY,  -- Unique identifier for each branch
+    branch_name VARCHAR(100) NOT NULL,         -- Name of the branch
+    branch_address TEXT,                       -- Address of the branch
+    branch_phone VARCHAR(15)                   -- Phone number of the branch
+);
+
+-- Create a table to store account details
+CREATE TABLE Accounts (
+    account_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each account
+    customer_id INT NOT NULL,                  -- ID of the customer owning the account
+    branch_id INT,                             -- ID of the branch where the account is held
+    account_type ENUM('Savings', 'Checking', 'Loan') NOT NULL, -- Type of account
+    balance DECIMAL(15, 2) DEFAULT 0.00,       -- Current balance of the account
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Timestamp of when the account was created
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) ON DELETE CASCADE, -- Link to the Customers table
+    FOREIGN KEY (branch_id) REFERENCES Branches(branch_id) ON DELETE SET NULL     -- Link to the Branches table
+);
+
+-- Create a table to store transaction details
+CREATE TABLE Transactions (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each transaction
+    account_id INT NOT NULL,                       -- ID of the account associated with the transaction
+    transaction_type ENUM('Deposit', 'Withdrawal', 'Transfer') NOT NULL, -- Type of transaction
+    amount DECIMAL(15, 2) NOT NULL,                -- Amount involved in the transaction
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Timestamp of when the transaction occurred
+    description TEXT,                              -- Description or notes about the transaction
+    FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE CASCADE -- Link to the Accounts table
+);
+
+-- Create a table to store account holder information for joint accounts
+CREATE TABLE Account_Holders (
+    account_holder_id INT AUTO_INCREMENT PRIMARY KEY, -- Unique identifier for each record
+    account_id INT NOT NULL,                          -- ID of the account
+    customer_id INT NOT NULL,                         -- ID of the customer associated with the account
+    FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE CASCADE, -- Link to the Accounts table
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) ON DELETE CASCADE -- Link to the Customers table
+);
+
+-- Query to fetch transaction details along with account types for a specific customer
+SELECT 
+    t.transaction_id,           -- ID of the transaction
+    t.transaction_type,         -- Type of transaction (Deposit, Withdrawal, etc.)
+    t.amount,                   -- Amount involved in the transaction
+    t.transaction_date,         -- Timestamp of the transaction
+    a.account_type              -- Type of account associated with the transaction
+FROM 
+    Transactions t
+JOIN 
+    Accounts a ON t.account_id = a.account_id   -- Join Transactions with Accounts
+JOIN 
+    Customers c ON a.customer_id = c.customer_id; -- Join Accounts with Customers
